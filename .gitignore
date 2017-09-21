@@ -1,0 +1,12 @@
+deprecated
+*.npy
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.jpg
+data/*
+job
+log.txt
+model/*
+Inference.py

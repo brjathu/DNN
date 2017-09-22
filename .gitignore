@@ -10,3 +10,4 @@ job
 log.txt
 model/*
 Inference.py
+LOG/*

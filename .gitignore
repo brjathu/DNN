@@ -11,3 +11,6 @@ log.txt
 model/*
 Inference.py
 LOG/*
+LOG_test/*
+*.out
+job*

@@ -1,0 +1,18 @@
+#!/bin/bash -l
+#SBATCH --job-name=rnn-sniff
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=100gb
+#SBATCH --time=02:00:00
+#SBATCH --gres=gpu:0
+# mail alert at start, end and abortion of execution
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=rajasegaran.jathushan@data61.csiro.au
+
+
+module load tensorflow/1.0.0-py35-gpu 
+module load python/3.6.1
+#module load keras/1.1.0 
+module load cuda cudnn
+
+python ./final.py

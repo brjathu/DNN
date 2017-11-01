@@ -71,17 +71,17 @@ def plotConfusionMatrix(predictions, y, FILENAME, TITLE):
     return accuracy
 
 
-activation = ["relu", "tanh", "sigmoid"]
-layer_before_softmax = [32, 64, 128]
+activation = ["tanh"]
+layer_before_softmax = [64, 128]
 
 
 # prepare data
-x_train, y_train = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/sniff/30/1.0/sc/train.txt")
+x_train, y_train = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/deep/250/1.0/sc/train.txt")
 # x_train, y_train = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/deep/250/1.0/sc/train.txt")
 x_train = np.array(x_train)
 y_train = np.array(y_train)
 
-x_valid, y_valid = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/sniff/30/1.0/sc/valid.txt")
+x_valid, y_valid = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/deep/250/1.0/sc/valid.txt")
 # x_test, y_test = buildTestSet("/flush1/sen040/96_tmp_data_augmented_final/deep/250/1.0/sc/test.txt")
 x_valid = np.array(x_valid)
 y_valid = np.array(y_valid)
@@ -91,7 +91,7 @@ for n in layer_before_softmax:
     for fun in activation:
         MODEL = str(n) + "_" + str(fun)
 
-        RESULTS_PATH = str("/flush1/raj034/DNN/100EPOCH/sniff/" + str(MODEL) + "/")
+        RESULTS_PATH = str("/flush1/raj034/DNN/100EPOCH/deep/" + str(MODEL) + "/")
         os.system("mkdir " + RESULTS_PATH)
         LOG_FILE = open(RESULTS_PATH + 'log.txt', 'a')
 
@@ -101,7 +101,7 @@ for n in layer_before_softmax:
 
         # tf placeholder
         # value in the range of (0, 1)
-        tf_x = tf.placeholder(tf.float32, [None, 96 * 30])
+        tf_x = tf.placeholder(tf.float32, [None, 96 * 250])
         tf_y = tf.placeholder(tf.float32, [None, 10])
 
         if(fun == "tanh"):
@@ -112,32 +112,32 @@ for n in layer_before_softmax:
             act = tf.nn.sigmoid
         if(n == 32):
                 # # model 1 - sniff - 32
-            hidden_layer1 = tf.layers.dense(tf_x, 2048, act, name="hidden_layer1")
-            hidden_layer2 = tf.layers.dense(hidden_layer1, 1024, act, name="hidden_layer2")
-            hidden_layer3 = tf.layers.dense(hidden_layer2, 512, act, name="hidden_layer3")
-            hidden_layer4 = tf.layers.dense(hidden_layer3, 256, act, name="hidden_layer4")
-            hidden_layer5 = tf.layers.dense(hidden_layer4, 128, act, name="hidden_layer5")
-            hidden_layer6 = tf.layers.dense(hidden_layer5, 64, act, name="hidden_layer6")
+            hidden_layer1 = tf.layers.dense(tf_x, 16384, act, name="hidden_layer1")
+            hidden_layer2 = tf.layers.dense(hidden_layer1, 8192, act, name="hidden_layer2")
+            hidden_layer3 = tf.layers.dense(hidden_layer2, 4096, act, name="hidden_layer3")
+            hidden_layer4 = tf.layers.dense(hidden_layer3, 2048, act, name="hidden_layer4")
+            hidden_layer5 = tf.layers.dense(hidden_layer4, 512, act, name="hidden_layer5")
+            hidden_layer6 = tf.layers.dense(hidden_layer5, 128, act, name="hidden_layer6")
             hidden_layer7 = tf.layers.dense(hidden_layer6, 32, act, name="hidden_layer7")
             hidden_layer8 = tf.layers.dense(hidden_layer7, 10, act, name="hidden_layer8")
 
         if(n == 64):
             # # model 1 - sniff - 32
-            hidden_layer1 = tf.layers.dense(tf_x, 2048, act, name="hidden_layer1")
-            hidden_layer2 = tf.layers.dense(hidden_layer1, 1024, act, name="hidden_layer2")
-            hidden_layer3 = tf.layers.dense(hidden_layer2, 512, act, name="hidden_layer3")
-            hidden_layer4 = tf.layers.dense(hidden_layer3, 256, act, name="hidden_layer4")
-            hidden_layer5 = tf.layers.dense(hidden_layer4, 128, act, name="hidden_layer5")
+            hidden_layer1 = tf.layers.dense(tf_x, 16384, act, name="hidden_layer1")
+            hidden_layer2 = tf.layers.dense(hidden_layer1, 8192, act, name="hidden_layer2")
+            hidden_layer3 = tf.layers.dense(hidden_layer2, 4096, act, name="hidden_layer3")
+            hidden_layer4 = tf.layers.dense(hidden_layer3, 1024, act, name="hidden_layer4")
+            hidden_layer5 = tf.layers.dense(hidden_layer4, 256, act, name="hidden_layer5")
             hidden_layer6 = tf.layers.dense(hidden_layer5, 64, act, name="hidden_layer6")
             # hidden_layer7 = tf.layers.dense(hidden_layer6, 32, act, name="hidden_layer7")
             hidden_layer8 = tf.layers.dense(hidden_layer6, 10, act, name="hidden_layer8")
 
         if(n == 128):
             # # model 1 - sniff - 32
-            hidden_layer1 = tf.layers.dense(tf_x, 2048, act, name="hidden_layer1")
-            hidden_layer2 = tf.layers.dense(hidden_layer1, 1024, act, name="hidden_layer2")
-            hidden_layer3 = tf.layers.dense(hidden_layer2, 512, act, name="hidden_layer3")
-            hidden_layer4 = tf.layers.dense(hidden_layer3, 256, act, name="hidden_layer4")
+            hidden_layer1 = tf.layers.dense(tf_x, 16384, act, name="hidden_layer1")
+            hidden_layer2 = tf.layers.dense(hidden_layer1, 8192, act, name="hidden_layer2")
+            hidden_layer3 = tf.layers.dense(hidden_layer2, 2048, act, name="hidden_layer3")
+            hidden_layer4 = tf.layers.dense(hidden_layer3, 512, act, name="hidden_layer4")
             hidden_layer5 = tf.layers.dense(hidden_layer4, 128, act, name="hidden_layer5")
             # hidden_layer6 = tf.layers.dense(hidden_layer5, 64, act, name="hidden_layer6")
             # hidden_layer7 = tf.layers.dense(hidden_layer6, 32, act, name="hidden_layer7")
@@ -163,15 +163,15 @@ for n in layer_before_softmax:
         accuracy = []
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
-            saver = tf.train.Saver(max_to_keep=200)
+            saver = tf.train.Saver(max_to_keep=300)
             for epoch in range(EPOCH):
                 loss_avg = 0
                 total_batch = int(x_train.shape[0] / BATCH_SIZE)
                 for i in range(total_batch):
                     _, loss_val = sess.run([train, loss], {tf_x: np.reshape(x_train[i * BATCH_SIZE:(i + 1) * BATCH_SIZE], (
-                        BATCH_SIZE, 96 * 30)), tf_y: np.reshape(y_train[i * BATCH_SIZE:(i + 1) * BATCH_SIZE], (BATCH_SIZE, 10))})
+                        BATCH_SIZE, 96 * 250)), tf_y: np.reshape(y_train[i * BATCH_SIZE:(i + 1) * BATCH_SIZE], (BATCH_SIZE, 10))})
                     loss_avg += loss_val
-                _, loss_val = sess.run([train, loss], {tf_x: np.reshape(x_train[total_batch * BATCH_SIZE:], (x_train.shape[0] - total_batch * BATCH_SIZE, 96 * 30)),
+                _, loss_val = sess.run([train, loss], {tf_x: np.reshape(x_train[total_batch * BATCH_SIZE:], (x_train.shape[0] - total_batch * BATCH_SIZE, 96 * 250)),
                                                        tf_y: np.reshape(y_train[total_batch * BATCH_SIZE:], (x_train.shape[0] - total_batch * BATCH_SIZE, 10))})
                 logEntry("EPOCH ==> " + str(epoch) + "  LOSS  ===>  " + str(loss_avg / i))
                 loss_avg += loss_val
